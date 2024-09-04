@@ -1,0 +1,29 @@
+<div class="container my-3 col-sm-6">
+  <h1>Grocery Items Spring Boot CRUD</h1>
+  <!-- <form (ngSubmit)="Submitted()"> -->
+  <form #regForm="ngForm" (ngSubmit)="AddItems()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="name" id="name" name="name"
+        placeholder="Enter name">
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" class="form-select" [(ngModel)]="category" name="category" required>
+        <ng-container *ngFor="let c of AllCategories">
+          <option *ngIf="c.status === 1 || c.status_name === 'Active'" [value]="c.id">{{ c.name }}</option>
+        </ng-container>
+      </select>
+      <!-- <input type="text" class="form-control" [(ngModel)]="category" id="category" name="quantity" 
+      placeholder="Enter category"> -->
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="number" class="form-control" [(ngModel)]="quantity" id="quantity" name="quantity"
+        placeholder="Enter quantity" required>
+    </div>
+
+    <button type="button" class="btn btn-primary my-2" (click)="AddItems()">Submit</button>
+  </form>
+
+</div>

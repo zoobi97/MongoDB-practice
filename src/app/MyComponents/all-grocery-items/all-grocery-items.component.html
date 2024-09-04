@@ -1,0 +1,72 @@
+<!-- <app-add-grocery-items (GroceryItemsAddKrdo)="addItem($event)" [itemcount]="itemcount"></app-add-grocery-items> -->
+<app-add-grocery-items (CategoriesforModal)="GetCategories($event)" [itemcount]="itemcount" [max]="maxId"></app-add-grocery-items>
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>SNo.</td>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Quantity</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of AllGroceryItems; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.categories?.name}}</td>
+                <td>{{item.quantity}}</td>
+                <td><button type="button" class="btn btn-danger btn-sm" (click)="openEditModal(item)">Edit</button>
+                  <button class="btn btn-danger btn-sm mx-2" (click)="deleteItem(item)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update Grocery Items</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="nameU" id="nameU" name="nameU" 
+                  placeholder="Enter name">
+                </div>
+                <div class="form-group  my-3">
+                  <label for="categoryU">Category</label>
+                  <!-- <input type="text" class="form-control" [(ngModel)]="categoryU" id="categoryU" name="categoryU" 
+                  placeholder="Enter category"> -->
+                  <select id="categoryU" class="form-select" [(ngModel)]="categoryU" name="categoryU">
+                    <ng-container *ngFor="let c of AllCategories">
+                      <option *ngIf="c.status === 1 || c.status_name === 'Active'" [value]="c.id">{{ c.name }}</option>
+                    </ng-container>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control" [(ngModel)]="quantityU" id="quantityU" name="quantityU" 
+                  placeholder="Enter quantity">
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
